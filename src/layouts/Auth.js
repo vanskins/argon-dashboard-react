@@ -16,20 +16,16 @@
 
 */
 import React from "react";
-import { useLocation, Route, Routes, Navigate } from "react-router-dom";
+import { useLocation, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
-
-// core components
-import AuthNavbar from "components/Navbars/AuthNavbar.js";
-import AuthFooter from "components/Footers/AuthFooter.js";
-
 import routes from "routes.js";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
-
+  const navigate = useNavigate();
+  const authenticated = false;
   React.useEffect(() => {
     document.body.classList.add("bg-default");
     return () => {
@@ -41,6 +37,12 @@ const Auth = (props) => {
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
   }, [location]);
+
+  React.useEffect(() => {
+    if (authenticated) {
+      navigate("/admin")
+    }
+  },)
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -57,7 +59,7 @@ const Auth = (props) => {
   return (
     <>
       <div className="main-content" ref={mainContent}>
-        <AuthNavbar />
+        {/* <AuthNavbar /> */}
         <div className="header bg-gradient-info py-7 py-lg-8">
           <Container>
             <div className="header-body text-center mb-7">
@@ -98,7 +100,7 @@ const Auth = (props) => {
           </Row>
         </Container>
       </div>
-      <AuthFooter />
+      {/* <AuthFooter /> */}
     </>
   );
 };
